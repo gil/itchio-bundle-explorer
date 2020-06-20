@@ -13,6 +13,12 @@
         />
 
         <FilterField
+          field-label="Average Session"
+          field="averageSession"
+          mutation="filterAverageSession"
+        />
+
+        <FilterField
           field-label="Platforms"
           field="platforms"
           mutation="filterPlatforms"
