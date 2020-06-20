@@ -35,13 +35,15 @@ function getUniqueMetaValues(gameMetas: GameMetas, prop: keyof GameMeta): string
   return [...values].sort() as string[];
 }
 
-function filterGames(games: Game[], filters: string[], field: keyof GameMeta) {
+function filterGames(games: Game[], filters: string[], field: keyof GameMeta): Game[] {
+  if( !filters.length ) {
+    return games;
+  }
   return games.filter(g => {
-    if( g.meta[field] ) {
-      for( const filterText of filters ) {
-        if( !(g.meta[field] as { text: string }[]).find(metaItem => metaItem.text === filterText) ) {
-          return false;
-        }
+    if( !g.meta[field] ) return false;
+    for( const filterText of filters ) {
+      if( !(g.meta[field] as { text: string }[]).find(metaItem => metaItem.text === filterText) ) {
+        return false;
       }
     }
     return true;
@@ -69,13 +71,8 @@ export default new Vuex.Store({
     filteredGames(state, getters): Game[] {
       let games = getters.gamesWithMeta as Game[];
 
-      if( state.filters.genres.length ) {
-        games = filterGames(games, state.filters.genres, 'Genre');
-      }
-
-      if( state.filters.platforms.length ) {
-        games = filterGames(games, state.filters.platforms, 'Platforms');
-      }
+      games = filterGames(games, state.filters.genres, 'Genre');
+      games = filterGames(games, state.filters.platforms, 'Platforms');
 
       return games
         .sort((a, b) => {
