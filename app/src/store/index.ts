@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { GameMetas, GameMeta, Game } from '@/types';
 
+const PAGE_SIZE = 30;
+
 Vue.use(Vuex);
 
 function getGames(): Game[] {
@@ -37,7 +39,7 @@ export default new Vuex.Store({
   state: {
     games: getGames(),
     gameMeta: getGameMetas(),
-    gamesToShow: 30,
+    gamesToShow: PAGE_SIZE,
     filters: {
       genres: []
     }
@@ -72,7 +74,7 @@ export default new Vuex.Store({
   mutations: {
 
     loadMoreGames(state) {
-      state.gamesToShow = Math.min(state.gamesToShow + 30, state.games.length);
+      state.gamesToShow = Math.min(state.gamesToShow + PAGE_SIZE, state.games.length);
     },
 
     filterGenres(state, genres) {
