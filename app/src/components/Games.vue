@@ -14,14 +14,14 @@
             icon="star"
             :max="5"
             :show-score="true"
-            :custom-text="`(${ game.meta.Rating.total })`"
+            :custom-text="`(${ game.meta.Rating.total }) ${ game.price ? ' - ' + game.price : '' }`"
             :disabled="true"
           />
         </div>
-        <div>
-          <strong>Price:</strong>
-          {{ game.price }}
-        </div>
+        <!--<div v-if="game.price">-->
+          <!--<strong>Price:</strong>-->
+          <!--{{ game.price }}-->
+        <!--</div>-->
         <div>
           <a
             v-for="(genre, index) in game.meta.Genre"
@@ -44,10 +44,10 @@ import { mapGetters, mapMutations } from 'vuex';
 
 @Component({
   computed: {
-    ...mapGetters(['filteredGames'])
+    ...mapGetters(['filteredGames']),
   },
   methods: {
-    ...mapMutations(['loadMoreGames'])
+    ...mapMutations(['loadMoreGames']),
   }
 })
 export default class Games extends Vue {
