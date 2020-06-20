@@ -35,29 +35,49 @@ function getUniqueMetaValues(gameMetas: GameMetas, prop: keyof GameMeta): string
   return [...values].sort() as string[];
 }
 
+function filterGames(games: Game[], filters: string[], field: keyof GameMeta) {
+  return games.filter(g => {
+    if( g.meta[field] ) {
+      for( const filterText of filters ) {
+        if( !(g.meta[field] as { text: string }[]).find(metaItem => metaItem.text === filterText) ) {
+          return false;
+        }
+      }
+    }
+    return true;
+  });
+}
+
 export default new Vuex.Store({
   state: {
     games: getGames(),
     gameMeta: getGameMetas(),
     gamesToShow: PAGE_SIZE,
     filters: {
-      genres: []
+      genres: [],
+      platforms: [],
     }
   },
   getters: {
 
-    filteredGames(state): Game[] {
-      return state.games
-        .map(g => {
-          return { ...g, meta: state.gameMeta[g.id] };
-        })
-        .filter(g => {
-          if( !state.filters.genres.length ) {
-            return true;
-          }
-          // TODO: UGH!
-          return !!( g.meta.Genre && g.meta.Genre.find(genre => genre.text === state.filters.genres[0]) );
-        })
+    gamesWithMeta(state): Game[] {
+      return state.games.map(g => {
+        return { ...g, meta: state.gameMeta[g.id] };
+      });
+    },
+
+    filteredGames(state, getters): Game[] {
+      let games = getters.gamesWithMeta as Game[];
+
+      if( state.filters.genres.length ) {
+        games = filterGames(games, state.filters.genres, 'Genre');
+      }
+
+      if( state.filters.platforms.length ) {
+        games = filterGames(games, state.filters.platforms, 'Platforms');
+      }
+
+      return games
         .sort((a, b) => {
           const ra = (((a.meta.Rating ? +a.meta.Rating.total : 0) / 100) + 1) * (a.meta.Rating ? +a.meta.Rating.value : 0);
           const rb = (((b.meta.Rating ? +b.meta.Rating.total : 0) / 100) + 1) * (b.meta.Rating ? +b.meta.Rating.value : 0);
@@ -70,6 +90,10 @@ export default new Vuex.Store({
       return getUniqueMetaValues(state.gameMeta, 'Genre');
     },
 
+    platforms(state): string[] {
+      return getUniqueMetaValues(state.gameMeta, 'Platforms');
+    },
+
   },
   mutations: {
 
@@ -79,6 +103,10 @@ export default new Vuex.Store({
 
     filterGenres(state, genres) {
       state.filters.genres = genres;
+    },
+
+    filterPlatforms(state, platforms) {
+      state.filters.platforms = platforms;
     },
 
   },

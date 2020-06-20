@@ -21,6 +21,21 @@
           </div>
         </div>
 
+        <div class="field">
+          <label class="label">Platforms</label>
+          <div class="control">
+            <b-checkbox
+              v-for="platform in platforms"
+              :key="platform"
+              v-model="filteredPlatforms"
+              :native-value="platform"
+              size="is-small"
+              >
+              {{ platform }}
+            </b-checkbox>
+          </div>
+        </div>
+
       </div>
     </div>
   </nav>
@@ -34,18 +49,21 @@ import { mapState, mapGetters, mapMutations } from 'vuex';
   computed:{
     ...mapGetters([
       'genres',
+      'platforms',
     ]),
     ...mapState([
       'filters',
     ]),
   },
   methods: mapMutations([
-    'filterGenres'
+    'filterGenres',
+    'filterPlatforms',
   ]),
 })
 export default class Filters extends Vue {
   filters!: any;
   filterGenres!: (genres: string[]) => void;
+  filterPlatforms!: (platforms: string[]) => void;
 
   get filteredGenres(): string[] {
     return this.filters.genres;
@@ -53,6 +71,14 @@ export default class Filters extends Vue {
 
   set filteredGenres(genres: string[]) {
     this.filterGenres(genres);
+  }
+
+  get filteredPlatforms(): string[] {
+    return this.filters.platforms;
+  }
+
+  set filteredPlatforms(platforms: string[]) {
+    this.filterPlatforms(platforms);
   }
 }
 </script>
