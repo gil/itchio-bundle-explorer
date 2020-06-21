@@ -1,7 +1,10 @@
 <template>
   <div>
     <ul>
-      <li v-for="game in filteredGames" :key="game.id">
+      <li
+        v-for="game in filteredGames"
+        :key="game.id"
+      >
         <a :href="game.url" target="_blank">
           <img :src="game.cover" :alt="game.title">
         </a>
@@ -38,7 +41,10 @@
             />
         </div>
 
+        <div>{{ game.short_text }}</div>
+
         <div>
+          <b-icon icon="tag" size="is-small" />
           <a
             v-for="(genre, index) in game.meta.Genre"
             :key="genre.url"
@@ -49,16 +55,30 @@
             {{ genre.text }}
           </a>
         </div>
+
+        <b-icon icon="information" size="is-small" />
+        <a href="#" @click.prevent="selectGame(game)">
+          Game details
+        </a>
       </li>
     </ul>
+
+    <GameDetails
+      :game="selectedGame"
+      @closeDetails="selectGame(null)"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { mapGetters, mapMutations } from 'vuex';
+import GameDetails from './GameDetails.vue';
 
 @Component({
+  components: {
+    GameDetails,
+  },
   computed: {
     ...mapGetters(['filteredGames']),
   },
@@ -69,6 +89,7 @@ import { mapGetters, mapMutations } from 'vuex';
 export default class Games extends Vue {
   scrollTimeout = -1;
   loadMoreGames!: () => void;
+  selectedGame: any = null;
 
   mounted() {
     this.listenToScrolling();
@@ -83,6 +104,10 @@ export default class Games extends Vue {
         }
       });
     },  500);
+  }
+
+  selectGame(game: any) {
+    this.selectedGame = game;
   }
 }
 </script>
