@@ -60,6 +60,9 @@ export default new Vuex.Store({
       platforms: [],
       averageSession: [],
       tags: [],
+      multiplayer: [],
+      madeWith: [],
+      languages: []
     }
   },
   getters: {
@@ -77,6 +80,9 @@ export default new Vuex.Store({
       games = filterGames(games, state.filters.platforms, 'Platforms');
       games = filterGames(games, state.filters.averageSession, 'Average session');
       games = filterGames(games, state.filters.tags, 'Tags');
+      games = filterGames(games, state.filters.multiplayer, 'Multiplayer');
+      games = filterGames(games, state.filters.madeWith, 'Made with');
+      games = filterGames(games, state.filters.languages, 'Languages');
 
       return games
         .sort((a, b) => {
@@ -103,6 +109,18 @@ export default new Vuex.Store({
       return getUniqueMetaValues(state.gameMeta, 'Tags');
     },
 
+    multiplayer(state): string[] {
+      return getUniqueMetaValues(state.gameMeta, 'Multiplayer');
+    },
+
+    madeWith(state): string[] {
+      return getUniqueMetaValues(state.gameMeta, 'Made with');
+    },
+
+    languages(state): string[] {
+      return getUniqueMetaValues(state.gameMeta, 'Languages');
+    },
+
   },
   mutations: {
 
@@ -124,6 +142,18 @@ export default new Vuex.Store({
 
     filterTags(state, tags) {
       state.filters.tags = tags;
+    },
+
+    filterMultiplayer(state, multiplayer) {
+      state.filters.multiplayer = multiplayer;
+    },
+
+    filterMadeWith(state, madeWith) {
+      state.filters.madeWith = madeWith;
+    },
+
+    filterLanguages(state, languages) {
+      state.filters.languages = languages;
     },
 
   },

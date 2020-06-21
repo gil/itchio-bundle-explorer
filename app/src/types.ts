@@ -16,4 +16,7 @@ export interface GameMeta {
   Platforms?: { text: string; url: string }[];
   'Average session'?: { text: string; url: string }[];
   Tags?: { text: string; url: string }[];
+  Multiplayer?: { text: string; url: string }[];
+  'Made with'?: { text: string; url: string }[];
+  Languages?: { text: string; url: string }[];
 }

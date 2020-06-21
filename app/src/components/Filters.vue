@@ -7,7 +7,7 @@
       <div class="block">
 
         <FilterCheckField
-          field-label="Genres"
+          field-label="Genre"
           field="genres"
           mutation="filterGenres"
         />
@@ -25,9 +25,27 @@
         />
 
         <FilterCheckField
-          field-label="Platforms"
+          field-label="Multiplayer"
+          field="multiplayer"
+          mutation="filterMultiplayer"
+        />
+
+        <FilterCheckField
+          field-label="Platform"
           field="platforms"
           mutation="filterPlatforms"
+        />
+
+        <FilterTagField
+          field-label="Language"
+          field="languages"
+          mutation="filterLanguages"
+        />
+
+        <FilterTagField
+          field-label="Made With"
+          field="madeWith"
+          mutation="filterMadeWith"
         />
 
       </div>
