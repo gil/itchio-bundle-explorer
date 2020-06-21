@@ -59,6 +59,7 @@ export default new Vuex.Store({
       genres: [],
       platforms: [],
       averageSession: [],
+      tags: [],
     }
   },
   getters: {
@@ -75,6 +76,7 @@ export default new Vuex.Store({
       games = filterGames(games, state.filters.genres, 'Genre');
       games = filterGames(games, state.filters.platforms, 'Platforms');
       games = filterGames(games, state.filters.averageSession, 'Average session');
+      games = filterGames(games, state.filters.tags, 'Tags');
 
       return games
         .sort((a, b) => {
@@ -97,6 +99,10 @@ export default new Vuex.Store({
       return getUniqueMetaValues(state.gameMeta, 'Average session');
     },
 
+    tags(state): string[] {
+      return getUniqueMetaValues(state.gameMeta, 'Tags');
+    },
+
   },
   mutations: {
 
@@ -114,6 +120,10 @@ export default new Vuex.Store({
 
     filterAverageSession(state, averageSession) {
       state.filters.averageSession = averageSession;
+    },
+
+    filterTags(state, tags) {
+      state.filters.tags = tags;
     },
 
   },

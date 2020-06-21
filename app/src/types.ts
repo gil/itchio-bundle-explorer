@@ -15,4 +15,5 @@ export interface GameMeta {
   Genre?: { text: string; url: string }[];
   Platforms?: { text: string; url: string }[];
   'Average session'?: { text: string; url: string }[];
+  Tags?: { text: string; url: string }[];
 }

@@ -1,17 +1,18 @@
 <template>
   <div class="field">
-    <label class="label">{{ fieldLabel }}</label>
-    <div class="control">
-      <b-checkbox
-        v-for="filter in availableFilters"
-        :key="filter"
+    <b-field :label="fieldLabel">
+      <b-taginput
         v-model="selectedFilters"
-        :native-value="filter"
-        size="is-small"
-        >
-        {{ filter }}
-      </b-checkbox>
-    </div>
+        :data="filteredTags"
+        autocomplete
+        :allow-new="false"
+        :open-on-focus="false"
+        icon="label"
+        placeholder="Select a tag"
+        @typing="updateFilteredTags"
+      >
+      </b-taginput>
+    </b-field>
   </div>
 </template>
 
@@ -34,12 +35,18 @@ import { Component, Vue } from 'vue-property-decorator';
     },
   },
 })
-export default class FilterField extends Vue {
+export default class FilterTagField extends Vue {
   field!: string;
   mutation!: string;
+  filteredTags: string[] = [];
 
-  get availableFilters(): string[] {
-    return this.$store.getters[this.field];
+  updateFilteredTags(text: string) {
+    this.filteredTags = this.$store.getters[this.field].filter((tag: string) => {
+      return tag
+        .toString()
+        .toLowerCase()
+        .indexOf(text.toLowerCase()) >= 0
+    });
   }
 
   get selectedFilters(): string[] {

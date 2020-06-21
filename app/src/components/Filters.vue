@@ -6,19 +6,25 @@
     <div class="panel-block">
       <div class="block">
 
-        <FilterField
+        <FilterCheckField
           field-label="Genres"
           field="genres"
           mutation="filterGenres"
         />
 
-        <FilterField
+        <FilterTagField
+          field-label="Tags"
+          field="tags"
+          mutation="filterTags"
+        />
+
+        <FilterCheckField
           field-label="Average Session"
           field="averageSession"
           mutation="filterAverageSession"
         />
 
-        <FilterField
+        <FilterCheckField
           field-label="Platforms"
           field="platforms"
           mutation="filterPlatforms"
@@ -31,11 +37,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import FilterField from './FilterField.vue';
+import FilterCheckField from './FilterCheckField.vue';
+import FilterTagField from './FilterTagField.vue';
 
 @Component({
   components: {
-    FilterField,
+    FilterCheckField,
+    FilterTagField,
   },
 })
 export default class Filters extends Vue { }
