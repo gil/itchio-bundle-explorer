@@ -12,6 +12,7 @@ export interface GameMetas {
 
 export interface GameMeta {
   Updated?: string;
+  Status?: { value: number; total: string };
   Rating?: { value: number; total: string };
   Genre?: { text: string; url: string }[];
   Platforms?: { text: string; url: string }[];

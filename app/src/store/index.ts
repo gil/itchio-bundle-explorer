@@ -20,6 +20,7 @@ function getGameMetas(): GameMetas {
       meta.Rating.value = +meta.Rating.value;
     }
     delete meta.Updated;
+    delete meta.Status;
   });
 
   return gameMetas;

@@ -49,6 +49,8 @@
               </span>
             </li>
           </ul>
+
+          <small>* This data is a snapshot, for updated information check the game page.</small>
         </div>
 
         <footer class="card-footer">

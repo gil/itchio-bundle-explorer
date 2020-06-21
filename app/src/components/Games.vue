@@ -43,7 +43,7 @@
 
         <div>{{ game.short_text }}</div>
 
-        <div>
+        <div v-if="game.meta.Genre">
           <b-icon icon="tag" size="is-small" />
           <a
             v-for="(genre, index) in game.meta.Genre"
