@@ -3,7 +3,7 @@
     <ul>
       <li v-for="game in filteredGames" :key="game.id">
         <a :href="game.url" target="_blank">
-          <img :src="game.cover" />
+          <img :src="game.cover" :alt="game.title">
         </a>
 
         <div>
