@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <section class="section">
+    <header class="section">
       <h1 class="title">Bundle for Racial Justice and Equality</h1>
       <h2 class="subtitle">
         A bundle hosted by
         <a href="https://itch.io/" target="_blank">itch.io</a>
         with content from 1391 creators.
       </h2>
-    </section>
+    </header>
 
     <section class="section">
       <div class="columns">
@@ -35,3 +35,9 @@ import Filters from './components/Filters.vue';
 })
 export default class App extends Vue {}
 </script>
+
+<style scoped>
+header {
+  padding-bottom: 0;
+}
+</style>

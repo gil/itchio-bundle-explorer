@@ -2,26 +2,42 @@
   <div>
     <ul>
       <li v-for="game in filteredGames" :key="game.id">
-        <h3>{{ game.title }}</h3>
         <a :href="game.url" target="_blank">
           <img :src="game.cover" />
         </a>
-        <div v-if="game.meta.Rating">
-          <!--<strong>Rating:</strong>-->
+
+        <div>
+          <div class="level">
+            <div class="level-left">
+              <div class="level-item">
+                <h3>{{ game.title }}</h3>
+              </div>
+            </div>
+            <div class="level-right">
+              <div
+                v-if="game.price"
+                class="level-item"
+              >
+                {{ game.price }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          v-if="game.meta.Rating"
+        >
           <b-rate
             v-model="game.meta.Rating.value"
             icon-pack="mdi"
             icon="star"
             :max="5"
             :show-score="true"
-            :custom-text="`(${ game.meta.Rating.total }) ${ game.price ? ' - ' + game.price : '' }`"
+            :custom-text="`(${ game.meta.Rating.total })`"
             :disabled="true"
-          />
+            />
         </div>
-        <!--<div v-if="game.price">-->
-          <!--<strong>Price:</strong>-->
-          <!--{{ game.price }}-->
-        <!--</div>-->
+
         <div>
           <a
             v-for="(genre, index) in game.meta.Genre"
@@ -29,7 +45,7 @@
             :href="genre.url"
             target="_blank"
           >
-            <span v-if="index > 0">.</span>
+            <span v-if="index > 0">&bull;</span>
             {{ genre.text }}
           </a>
         </div>
@@ -72,10 +88,24 @@ export default class Games extends Vue {
 </script>
 
 <style scoped>
+h3 {
+  font-weight: bold;
+  max-width: 250px;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
 li {
-  display: inline-block;
-  margin: 10px;
+  font-size: 15px;
   width: 300px;
-  vertical-align: top;
+  margin-bottom: 50px;
+}
+
+.rate {
+  margin-left: -3px;
 }
 </style>
