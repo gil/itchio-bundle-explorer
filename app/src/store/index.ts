@@ -57,6 +57,7 @@ export default new Vuex.Store({
     games: getGames(),
     gameMeta: getGameMetas(),
     gamesToShow: PAGE_SIZE,
+    sortBy: '',
     filters: {
       genres: [],
       platforms: [],
@@ -76,7 +77,7 @@ export default new Vuex.Store({
     },
 
     filteredGames(state, getters): Game[] {
-      let games = getters.gamesWithMeta as Game[];
+      let games = [...getters.gamesWithMeta] as Game[];
 
       games = filterGames(games, state.filters.genres, 'Genre');
       games = filterGames(games, state.filters.platforms, 'Platforms');
@@ -86,13 +87,23 @@ export default new Vuex.Store({
       games = filterGames(games, state.filters.madeWith, 'Made with');
       games = filterGames(games, state.filters.languages, 'Languages');
 
-      return games
-        .sort((a, b) => {
-          const ra = (((a.meta.Rating ? +a.meta.Rating.total : 0) / 100) + 1) * (a.meta.Rating ? +a.meta.Rating.value : 0);
-          const rb = (((b.meta.Rating ? +b.meta.Rating.total : 0) / 100) + 1) * (b.meta.Rating ? +b.meta.Rating.value : 0);
+      if( state.sortBy === 'rating' ) {
+        games = games.sort((a, b) => {
+          const ra = Math.trunc(((a.meta.Rating ? +a.meta.Rating.total : 0) / 100) + 1) * (a.meta.Rating ? +a.meta.Rating.value : 0);
+          const rb = Math.trunc(((b.meta.Rating ? +b.meta.Rating.total : 0) / 100) + 1) * (b.meta.Rating ? +b.meta.Rating.value : 0);
           return rb - ra;
         })
-        .slice(0, state.gamesToShow);
+      } else if( state.sortBy === 'random' ) {
+        games = games.sort(() => Math.random() - 0.5);
+      } else if( state.sortBy === 'price' ) {
+        games = games.sort((a,b) => +(b.price || '0').replace('$', '') - +(a.price || '0').replace('$', ''))
+      }
+
+      return games;
+    },
+
+    paginatedGames(state, getters): Game[] {
+      return getters.filteredGames.slice(0, state.gamesToShow);
     },
 
     genres(state): string[] {
@@ -128,6 +139,10 @@ export default new Vuex.Store({
 
     loadMoreGames(state) {
       state.gamesToShow = Math.min(state.gamesToShow + PAGE_SIZE, state.games.length);
+    },
+
+    changeSortBy(state, sortBy) {
+      state.sortBy = sortBy;
     },
 
     filterGenres(state, genres) {

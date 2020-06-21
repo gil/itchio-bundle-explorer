@@ -2,7 +2,7 @@
   <div>
     <ul>
       <li
-        v-for="game in filteredGames"
+        v-for="game in paginatedGames"
         :key="game.id"
       >
         <a :href="game.url" target="_blank">
@@ -80,7 +80,7 @@ import GameDetails from './GameDetails.vue';
     GameDetails,
   },
   computed: {
-    ...mapGetters(['filteredGames']),
+    ...mapGetters(['paginatedGames']),
   },
   methods: {
     ...mapMutations(['loadMoreGames']),

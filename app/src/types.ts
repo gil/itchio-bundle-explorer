@@ -3,6 +3,7 @@ export interface Game {
   title: string;
   cover: string;
   url: string;
+  price: string;
   meta: GameMeta;
 }
 

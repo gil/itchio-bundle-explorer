@@ -6,6 +6,8 @@
     <div class="panel-block">
       <div class="block">
 
+        <SortBy />
+
         <FilterCheckField
           field-label="Genre"
           field="genres"
@@ -55,11 +57,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import SortBy from './SortBy.vue';
 import FilterCheckField from './FilterCheckField.vue';
 import FilterTagField from './FilterTagField.vue';
 
 @Component({
   components: {
+    SortBy,
     FilterCheckField,
     FilterTagField,
   },
