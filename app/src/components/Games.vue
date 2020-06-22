@@ -6,7 +6,7 @@
         :key="game.id"
       >
         <a :href="game.url" target="_blank">
-          <img :src="game.cover" :alt="game.title">
+          <img :src="game.cover" :alt="game.title" loading="lazy" decoding="async">
         </a>
 
         <div>
