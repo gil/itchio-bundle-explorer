@@ -137,6 +137,10 @@ export default new Vuex.Store({
   },
   mutations: {
 
+    resetPagination(state) {
+      state.gamesToShow = PAGE_SIZE;
+    },
+
     loadMoreGames(state) {
       state.gamesToShow = Math.min(state.gamesToShow + PAGE_SIZE, state.games.length);
     },

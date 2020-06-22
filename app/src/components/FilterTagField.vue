@@ -54,6 +54,7 @@ export default class FilterTagField extends Vue {
   }
 
   set selectedFilters(selected: string[]) {
+    this.$store.commit('resetPagination');
     this.$store.commit(this.mutation, selected);
   }
 }

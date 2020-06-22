@@ -44,6 +44,7 @@ export default class SortBy extends Vue {
   }
 
   set sortByModel(value: string) {
+    this.$store.commit('resetPagination');
     this.changeSortBy(value);
   }
 }
