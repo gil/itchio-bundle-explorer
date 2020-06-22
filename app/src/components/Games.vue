@@ -6,7 +6,14 @@
         :key="game.id"
       >
         <a :href="game.url" target="_blank">
-          <img :src="game.cover" :alt="game.title" loading="lazy" decoding="async">
+          <img
+            :src="game.cover"
+            :alt="game.title"
+            width="300"
+            height="240"
+            loading="lazy"
+            decoding="async"
+          />
         </a>
 
         <div>
