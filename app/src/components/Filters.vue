@@ -1,7 +1,7 @@
 <template>
   <nav class="panel is-primary">
     <p class="panel-heading">
-      Filters
+      Filter ({{ filteredGames.length}} items)
     </p>
     <div class="panel-block">
       <div class="block">
@@ -57,6 +57,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { mapGetters } from 'vuex';
 import SortBy from './SortBy.vue';
 import FilterCheckField from './FilterCheckField.vue';
 import FilterTagField from './FilterTagField.vue';
@@ -67,6 +68,9 @@ import FilterTagField from './FilterTagField.vue';
     FilterCheckField,
     FilterTagField,
   },
+  computed: mapGetters([
+    'filteredGames',
+  ]),
 })
 export default class Filters extends Vue { }
 </script>
