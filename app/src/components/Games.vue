@@ -81,6 +81,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { mapGetters, mapMutations } from 'vuex';
 import GameDetails from './GameDetails.vue';
+import { Game } from '../types';
 
 @Component({
   components: {
@@ -96,7 +97,7 @@ import GameDetails from './GameDetails.vue';
 export default class Games extends Vue {
   scrollTimeout = -1;
   loadMoreGames!: () => void;
-  selectedGame: any = null;
+  selectedGame: Game | null = null;
 
   mounted() {
     this.listenToScrolling();
@@ -113,7 +114,7 @@ export default class Games extends Vue {
     },  500);
   }
 
-  selectGame(game: any) {
+  selectGame(game: Game | null) {
     this.selectedGame = game;
   }
 }

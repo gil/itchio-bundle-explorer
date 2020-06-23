@@ -63,6 +63,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { Game } from '../types';
 
 @Component({
   props: {
@@ -73,7 +74,7 @@ import { Component, Vue } from 'vue-property-decorator';
   },
 })
 export default class GameDetails extends Vue {
-  game: any = null;
+  game!: Game | null;
 
   get isVisible(): boolean {
     return !!this.game;
