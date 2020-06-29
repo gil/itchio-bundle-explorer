@@ -130,7 +130,7 @@ ul {
 li {
   font-size: 15px;
   width: 300px;
-  margin-bottom: 50px;
+  margin: 0 10px 50px 10px;
 }
 
 .rate {
