@@ -17,27 +17,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
-@Component({
-  props: {
-    fieldLabel: {
-      type: String,
-      required: true,
-    },
-    field: {
-      type: String,
-      required: true,
-    },
-    mutation: {
-      type: String,
-      required: true,
-    },
-  },
-})
+@Component
 export default class FilterTagField extends Vue {
-  field!: string;
-  mutation!: string;
+  @Prop({ type: String, required: true }) field!: string;
+  @Prop({ type: String, required: true }) fieldLabel!: string;
+  @Prop({ type: String, required: true }) mutation!: string;
+
   filteredTags: string[] = [];
 
   updateFilteredTags(text: string) {

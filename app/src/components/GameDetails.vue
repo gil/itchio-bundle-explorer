@@ -62,19 +62,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Game } from '../types';
 
-@Component({
-  props: {
-    game: {
-      type: Object,
-      required: false,
-    },
-  },
-})
+@Component
 export default class GameDetails extends Vue {
-  game!: Game | null;
+  @Prop(Object) readonly game!: Game | null;
 
   get isVisible(): boolean {
     return !!this.game;
