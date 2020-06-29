@@ -19,19 +19,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { mapState, mapMutations } from 'vuex';
+import { State, Mutation } from 'vuex-class';
 
-@Component({
-  computed: mapState([
-    'sortBy'
-  ]),
-  methods: mapMutations([
-    'changeSortBy'
-  ]),
-})
+@Component
 export default class SortBy extends Vue {
-  sortBy!: string;
-  changeSortBy!: (value: string) => void;
+  @State sortBy!: string;
+  @Mutation changeSortBy!: (value: string) => void;
+
   sortOptions = [
     { label: 'Default', value: '' },
     { label: 'Rating', value: 'rating' },

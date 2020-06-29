@@ -79,24 +79,19 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { mapGetters, mapMutations } from 'vuex';
-import GameDetails from './GameDetails.vue';
+import { Mutation, Getter } from 'vuex-class';
 import { Game } from '../types';
+import GameDetails from './GameDetails.vue';
 
 @Component({
   components: {
     GameDetails,
   },
-  computed: {
-    ...mapGetters(['paginatedGames']),
-  },
-  methods: {
-    ...mapMutations(['loadMoreGames']),
-  }
 })
 export default class Games extends Vue {
+  @Mutation loadMoreGames!: () => void;
+  @Getter paginatedGames!: Game[];
   scrollTimeout = -1;
-  loadMoreGames!: () => void;
   selectedGame: Game | null = null;
 
   mounted() {
