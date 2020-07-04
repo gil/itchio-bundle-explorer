@@ -8,6 +8,12 @@
 
         <SortBy />
 
+        <FilterInputField
+          field-label="Title / Description / Author"
+          field="textFilter"
+          mutation="filterByText"
+        />
+
         <FilterCheckField
           field-label="Genre"
           field="genres"
@@ -62,12 +68,14 @@ import Games from './Games.vue';
 import SortBy from './SortBy.vue';
 import FilterCheckField from './FilterCheckField.vue';
 import FilterTagField from './FilterTagField.vue';
+import FilterInputField from './FilterInputField.vue';
 
 @Component({
   components: {
     SortBy,
     FilterCheckField,
     FilterTagField,
+    FilterInputField,
   },
 })
 export default class Filters extends Vue {

@@ -37,11 +37,17 @@ function getUniqueMetaValues(gameMetas: GameMetas, prop: keyof GameMeta): string
   return [...values].sort() as string[];
 }
 
+function filterGameText(games: Game[], filter: string): Game[] {
+  const cleanFilter = filter.trim().toLowerCase();
+  return !cleanFilter ? games : games.filter(g => {
+    return g.title.toLowerCase().includes(cleanFilter)
+      || g.user.name.toLowerCase().includes(cleanFilter)
+      || (g.short_text || '').toLowerCase().includes(cleanFilter);
+  });
+}
+
 function filterGames(games: Game[], filters: string[], field: keyof GameMeta): Game[] {
-  if( !filters.length ) {
-    return games;
-  }
-  return games.filter(g => {
+  return !filters.length ? games : games.filter(g => {
     if( !g.meta[field] ) return false;
     for( const filterText of filters ) {
       if( !(g.meta[field] as { text: string }[]).find(metaItem => metaItem.text === filterText) ) {
@@ -59,6 +65,7 @@ export default new Vuex.Store({
     gamesToShow: PAGE_SIZE,
     sortBy: '',
     filters: {
+      textFilter: '',
       genres: [],
       platforms: [],
       averageSession: [],
@@ -79,6 +86,7 @@ export default new Vuex.Store({
     filteredGames(state, getters): Game[] {
       let games = [...getters.gamesWithMeta] as Game[];
 
+      games = filterGameText(games, state.filters.textFilter);
       games = filterGames(games, state.filters.genres, 'Genre');
       games = filterGames(games, state.filters.platforms, 'Platforms');
       games = filterGames(games, state.filters.averageSession, 'Average session');
@@ -147,6 +155,10 @@ export default new Vuex.Store({
 
     changeSortBy(state, sortBy) {
       state.sortBy = sortBy;
+    },
+
+    filterByText(state, text) {
+      state.filters.textFilter = text;
     },
 
     filterGenres(state, genres) {

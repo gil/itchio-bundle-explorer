@@ -2,8 +2,10 @@ export interface Game {
   id: number;
   title: string;
   cover: string;
+  short_text: string;
   url: string;
   price: string;
+  user: { name: string };
   meta: GameMeta;
 }
 
