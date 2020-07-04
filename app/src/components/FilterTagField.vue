@@ -8,7 +8,7 @@
         :allow-new="false"
         :open-on-focus="false"
         icon="label"
-        placeholder="Select a tag"
+        placeholder="Select..."
         @typing="updateFilteredTags"
       >
       </b-taginput>

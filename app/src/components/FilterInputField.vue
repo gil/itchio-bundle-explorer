@@ -3,6 +3,9 @@
     <b-field :label="fieldLabel">
       <b-input
         v-model="filterModel"
+        placeholder="Search..."
+        type="search"
+        icon="magnify"
       />
     </b-field>
   </div>
